@@ -14,8 +14,73 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- List of Text Items -->
+  <ion-list-header>Score = {{score}}</ion-list-header>
+  <ion-list id="inbox-list" *ngFor="let question of questions; let i = index">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="ion-text-wrap">{{ question.text }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="question.type === 'binaire'">
+        <ion-col>
+          <ion-item>
+            <ion-button class="btn-answer" color="success" expand="block" (click)="updateScore(question.desc, true)">
+              <ion-icon slot="start" name="happy-outline"></ion-icon>
+              <strong>Oui</strong>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-button class="btn-answer" color="warning" (click)="upScore()">
+              <ion-icon slot="start" name="happy-outline"></ion-icon>
+              <strong>Sais pas</strong>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-button class="btn-answer" color="danger" (click)="updateScore(question.desc, false)">
+              <ion-icon slot="start" name="sad-outline"></ion-icon>
+              <strong>Non</strong>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="question.type === 'multiChoices'">
+        <ion-col *ngFor="let ans of question.answers">
+          <ion-item>
+            <ion-button class="btn-answer" color="light" expand="block" (click)="updateScore(question.desc, ans)">
+              <strong>{{ans}}</strong>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="question.type === 'number'">
+        <ion-col>
+          <ion-item>
+            <ion-range #val min="20" max="200" pin="true" color="secondary" (ionBlur)="updateScore(question.desc, val.el.value)">
+              <ion-label slot="start">20</ion-label>
+              <ion-label slot="end">200</ion-label>
+            </ion-range>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
+  </ion-list>
+  <ion-button (click)="calculateResult()" routerLink="/result" expand="full">
+    <ion-icon slot="end" name="pulse-outline"></ion-icon>
+    <strong>Résultats</strong>
+  </ion-button>
 </ion-content>

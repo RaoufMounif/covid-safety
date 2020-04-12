@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Resultats</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <img src="assets/personnes_agees.png" />
+        <ion-card-header>
+          <ion-card-subtitle>Restez chez vous au maximum en attendant que les symptômes disparaissent. Prenez
+              votre température deux fois par jour. Rappel des mesures d’hygiène. Un dispositif national grand
+              public de soutien psychologique au bénéfice des personnes qui en auraient besoin est accessible via
+              le numéro vert : 0 800 130 000. </ion-card-subtitle>
+          <ion-card-title>Résultats</ion-card-title>
+        </ion-card-header>
+        <ion-card-content >
+         <p [ngStyle]="{'color':getColor(result.gravite) }"> {{result.message}}</p>
+        </ion-card-content>
+      </ion-card>
+</ion-content>

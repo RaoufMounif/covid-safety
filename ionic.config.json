@@ -1,5 +1,7 @@
 {
   "name": "CodiveSaftey",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
